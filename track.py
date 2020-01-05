@@ -70,8 +70,14 @@ class TrackTime:
         
         with open('data.json') as file:
             return json.load(file)
-
+    def clear_prev_report(self):
+        try:#To clear any previous figure (overwrite)
+            self.widget.destroy()
+            logging.warning('Cleared previous figure')         
+        except Exception as e:#if no figure was initiated(self.widget isn't defined)
+            logging.warning(e)            
     def start_recording(self):
+        self.clear_prev_report()
         self.data_dict = self.get_data_dict()
         logging.warning('Recording')
         self.stop_btn.pack(side='left')             
@@ -130,11 +136,7 @@ class TrackTime:
         val = list(self.data_dict.values())
         logging.warning(labels)
         logging.warning(val)
-        try:#To clear any previous figure (overwrite)
-            self.widget.destroy()
-            logging.warning('Cleared previous figure')            
-        except Exception as e:#if no figure initially(self.widget isn't defined yet)
-            logging.warning(e)
+        self.clear_prev_report()
         self.figure = plt.Figure()
         subplot = self.figure.add_subplot()
         subplot.title.set_text("Report:")
@@ -190,11 +192,7 @@ class TrackTime:
                     val[i]+=k
         logging.warning(labels)
         logging.warning(val)
-        try:#To clear any previous figure (overwrite)
-            self.widget.destroy()
-            logging.warning('Cleared previous figure')            
-        except Exception as e:#if no figure initially(self.widget isn't defined yet)
-            logging.warning(e)
+        self.clear_prev_report()
         self.figure = plt.Figure()
         subplot = self.figure.add_subplot()
         subplot.title.set_text("Month Report:")
@@ -220,11 +218,7 @@ class TrackTime:
                     val[i]+=k
         logging.warning(labels)
         logging.warning(val)
-        try:#To clear any previous figure (overwrite)
-            self.widget.destroy()
-            logging.warning('Cleared previous figure')            
-        except Exception as e:#if no figure initially(self.widget isn't defined yet)
-            logging.warning(e)
+        self.clear_prev_report() 
         self.figure = plt.Figure()
         subplot = self.figure.add_subplot()
         subplot.title.set_text("Week Report:")
